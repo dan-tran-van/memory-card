@@ -10,6 +10,7 @@ function App() {
   const [selectedPokemons, setSelectedPokemons] = useState([]);
   const [status, setStatus] = useState("pending");
   const [errorMessage, setErrorMessage] = useState("");
+  const [hasWon, setHasWon] = useState(false);
   useEffect(() => {
     async function fetchPokemons() {
       setStatus("pending");
@@ -33,19 +34,41 @@ function App() {
     fetchPokemons();
   }, []);
 
+  function handleRestart() {
+    setSelectedPokemons([]);
+    setHasWon(false);
+    setScore(0);
+    setBestScore(0);
+  }
+
   return (
     <>
       {status === "pending" && <div id="loading">Loading...</div>}
       {status === "error" && <div id="error">{errorMessage}</div>}
       {status === "success" && (
         <>
-          <Header score={score} bestScore={bestScore} />
+          <Header
+            hasWon={hasWon}
+            setHasWon={setHasWon}
+            score={score}
+            bestScore={bestScore}
+          />
+          {hasWon && (
+            <>
+              <dir>You won the game!</dir>
+              <button onClick={handleRestart}>Restart</button>
+            </>
+          )}
           <CardList
             pokemons={pokemons}
+            bestScore={bestScore}
             setBestScore={setBestScore}
             setScore={setScore}
+            score={score}
             selectedPokemons={selectedPokemons}
-            setSeletedPokemons={setSelectedPokemons}
+            setSelectedPokemons={setSelectedPokemons}
+            hasWon={hasWon}
+            setHasWon={setHasWon}
           />
         </>
       )}

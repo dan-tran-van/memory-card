@@ -1,18 +1,36 @@
 import { Card } from "./Card";
+import "./CardList.css";
 
 export function CardList({
   pokemons,
+  score,
   setScore,
+  bestScore,
   setBestScore,
   selectedPokemons,
-  setSeletedPokemons,
+  setSelectedPokemons,
+  hasWon,
+  setHasWon,
 }) {
   shuffle(pokemons);
   return (
     <>
-      {pokemons.map((pokemon) => (
-        <Card key={pokemon.id} pokemon={pokemon} />
-      ))}
+      <div id="card-list">
+        {pokemons.map((pokemon) => (
+          <Card
+            key={pokemon.id}
+            pokemon={pokemon}
+            score={score}
+            setScore={setScore}
+            bestScore={bestScore}
+            setBestScore={setBestScore}
+            selectedPokemons={selectedPokemons}
+            setSelectedPokemons={setSelectedPokemons}
+            hasWon={hasWon}
+            setHasWon={setHasWon}
+          />
+        ))}
+      </div>
     </>
   );
 }

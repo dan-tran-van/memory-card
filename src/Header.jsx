@@ -1,4 +1,4 @@
-export function Header({ score, bestScore }) {
+export function Header({ score, bestScore, hasWon, setHasWon }) {
   return (
     <>
       <h1>Memory card</h1>
